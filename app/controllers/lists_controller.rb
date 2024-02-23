@@ -9,8 +9,11 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(lists_params)
-    @list.save
-    redirect_to lists_url
+    if @list.save
+      redirect_to list_url(@list)
+    else
+      render :new
+    end
   end
 
   def new
@@ -29,6 +32,6 @@ class ListsController < ApplicationController
   private
 
   def lists_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name,  :movie_id,  :bookmark_id , :list_id)
   end
 end
