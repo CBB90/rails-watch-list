@@ -14,20 +14,21 @@ class ListsController < ApplicationController
   end
 
   def new
-    @lists = List.new
-    end
+    @list = List.new
+  end
 
   def edit
   end
 
   def destroy
+    @list = List.find(params[:id])
     @list.destroy!
-        redirect_to lists_url, notice: "List was successfully destroyed.", status: :see_other
+    redirect_to lists_url, notice: "List was successfully destroyed.", status: :see_other
   end
 
   private
 
   def lists_params
-    params.require(:list).permit(:name )
+    params.require(:list).permit(:name)
   end
 end
